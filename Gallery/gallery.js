@@ -1,18 +1,18 @@
-// const allImages = document.querySelectorAll(".images .img");
-// const lightbox = document.querySelector(".lightbox");
-// const closeImgBtn = lightbox.querySelector(".close-icon");
+const fileInput = document.getElementById('file-input');
+const imageList = document.getElementById('image-list');
 
-// allImages.forEach(img => {
-//     img.addEventListener("click", () => showlightbox(img.querySelector("img")))
-// });
-
-// const showlightbox = (img) => {
-//     lightbox.querySelector("img").src = img;
-//     lightbox.classList.add("show");
-//     document.body.style.overflow = "hidden";
-// }
-
-// closeImgBtn.addEventListener("click", () => {
-//     lightbox.classList.remove("show");
-//     document.body.style.overflow = "auto";
-// })
+fileInput.addEventListener('change', (event) => {
+  const files = event.target.files;
+  
+  for (const file of files) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      const li = document.createElement('li');
+      li.appendChild(img);
+      imageList.appendChild(li);
+    };
+    reader.readAsDataURL(file);
+  }
+});
